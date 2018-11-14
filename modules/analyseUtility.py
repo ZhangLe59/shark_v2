@@ -8,7 +8,7 @@ def analyse_trend(_dict, stock):
     if twohundred_day_ma < fifty_day_ma < marketPrice:
         print('Hold this stock! ' + display_name)
     elif fifty_day_ma < marketPrice:
-        print('Seems effective rebouncing. ' + display_name)
+        print('Seems effective short-term rebouncing. ' + display_name)
     elif marketPrice < fifty_day_ma < twohundred_day_ma:
         print('This is really bad. ' + display_name)
     elif fifty_day_ma > twohundred_day_ma:
