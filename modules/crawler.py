@@ -12,8 +12,9 @@ stock_list = ['0700.HK', 'AMZN', 'LMT', 'BA', 'NFLX', 'FB', 'USNA', 'SQ', 'GDS',
 
 
 def get_data_yahoo():
-    collection = connect_to_mongoDB()
+    # collection = connect_to_mongoDB()
 
+    result_list = []
     for stock in stock_list:
         try:
             link = "https://finance.yahoo.com/quote/" + stock + "/key-statistics"
@@ -44,7 +45,8 @@ def get_data_yahoo():
             _dict[stock.replace('.', '-')] = _dict.pop(stock)
             stock = stock.replace('.', '-')
 
-            analyse_trend(_dict, stock)
+            result_list.append(_dict)
+            # analyse_trend(_dict, stock)
 
             # save_to_mongoDB(collection, _dict)
 
@@ -52,7 +54,8 @@ def get_data_yahoo():
 
         except Exception as crawl_exception:
             print(str(crawl_exception))
-            # time.sleep(2)
+
+    return result_list
 
 def connect_to_mongoDB():
     try:

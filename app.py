@@ -2,6 +2,7 @@ from bson import json_util
 from flask import Flask
 from modules.DBUtility import *
 from flask import render_template
+from modules.crawler import *
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
 app = Flask(__name__)
 
@@ -21,6 +22,13 @@ def start():
 
     return render_template('index.html', geocode=result_json)
     # return str(result_json)
+
+@app.route('/showMe')
+def show_today_snapshot():
+    today_data = get_data_yahoo()
+    print(today_data)
+
+
 
 
 if __name__ == '__main__':
