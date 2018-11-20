@@ -1,13 +1,16 @@
-from bson import json_util
-from flask import Flask
+from flask import Flask, jsonify
+from json2table import json2table
+
 from modules.DBUtility import *
 from flask import render_template
 from modules.crawler import *
+from modules.analyseUtility import *
+
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
 app = Flask(__name__)
 
 
-@app.route('/getResult')
+@app.route('/showall')
 def start():
     db_config = {'URI': 'mongodb+srv://root:root@cluster0-50fxe.mongodb.net/admin?retryWrites=true'}
     shark_db = Mongodb(db_config, 'sharkDB')
@@ -20,14 +23,20 @@ def start():
         doc.pop('_id')
         result_json.append(json.dumps(doc))
 
-    return render_template('index.html', geocode=result_json)
+    return json2table.convert(doc, "LEFT_TO_RIGHT", {'border': 1})
+    # return render_template('index.html', content=result_json)
     # return str(result_json)
 
-@app.route('/showMe')
+@app.route('/snapshot')
 def show_today_snapshot():
     today_data = get_data_yahoo()
-    print(today_data)
 
+    today = datetime.datetime.today().strftime('%Y-%m-%d')
+    analyse_result = analyse_trend(today_data[today])
+
+    html_string = json2table.convert(analyse_result)
+    # return render_template('index.html', content=analyse_result)
+    return html_string
 
 
 

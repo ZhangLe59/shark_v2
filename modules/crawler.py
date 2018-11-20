@@ -1,21 +1,28 @@
+import datetime
+
 from bs4 import BeautifulSoup
 import re
 import json
 import requests
 import pymongo
-from modules.analyseUtility import *
 
 # https://www.crummy.com/software/BeautifulSoup/bs4/doc/#navigating-the-tree
 
-stock_list = ['0700.HK', 'AMZN', 'LMT', 'BA', 'NFLX', 'FB', 'USNA', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA', 'TSLA', '2318.HK', '2202.HK', '1357.HK',
+stock_list = ['0700.HK', 'AMZN', 'LMT', 'BA', 'NFLX', 'FB', 'USNA', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA', 'TSLA',
+              '2318.HK', '2202.HK', '1357.HK',
               '1211.HK', '2120.HK', 'AU8U.SI', 'CWP.AX', 'IAG.AX', 'A2M.AX']
+
+# stock_list = ['0700.HK']
 
 
 def get_data_yahoo():
-    # collection = connect_to_mongoDB()
+    collection = connect_to_mongoDB()
 
-    result_list = []
-    for stock in stock_list:
+    final_result = {}
+    result = {}
+    data_dict = {}
+
+    for idx, stock in enumerate(stock_list):
         try:
             link = "https://finance.yahoo.com/quote/" + stock + "/key-statistics"
 
@@ -28,7 +35,7 @@ def get_data_yahoo():
             dict_string = "{\"" + stock + "\":{" + p.search(the_page.decode("utf-8")).group(1) + "e}}"
             # print(dict_string)
 
-            _dict = json.loads(dict_string)
+            data_dict[stock] = json.loads(dict_string)[stock]
 
             soup = BeautifulSoup(the_page, features="html.parser")
 
@@ -38,24 +45,27 @@ def get_data_yahoo():
                     for row in stock_price_hist_tb.findAll('tr'):
                         key = row.contents[0].text
                         _text = row.contents[1].text.rstrip("%").replace(',', '')
-
                         value = float(_text if _text != 'N/A' else '10000000')
-                        _dict[stock][key] = value
+                        data_dict[stock][key] = value
 
-            _dict[stock.replace('.', '-')] = _dict.pop(stock)
-            stock = stock.replace('.', '-')
+            data_dict[stock.replace('.', '-')] = data_dict.pop(stock)
+            stock_list[idx] = stock.replace('.', '-')
 
-            result_list.append(_dict)
-            # analyse_trend(_dict, stock)
-
-            # save_to_mongoDB(collection, _dict)
-
-            # print(stock + ' loaded')
+            print(stock + ' loaded')
 
         except Exception as crawl_exception:
             print(str(crawl_exception))
 
-    return result_list
+    result['stock_code'] = stock_list
+    result['data'] = data_dict
+
+    date = datetime.datetime.today().strftime('%Y-%m-%d')
+    final_result[date] = result
+
+    save_to_mongoDB(collection, final_result)
+
+    return final_result
+
 
 def connect_to_mongoDB():
     try:
@@ -75,5 +85,5 @@ def save_to_mongoDB(collection, dict):
         print(str(db_exception))
 
 
-get_data_yahoo()
+# get_data_yahoo()
 # save_to_mongoDB()
