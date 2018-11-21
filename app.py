@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, g
 from json2table import json2table
 
 from modules.DBUtility import *
@@ -7,6 +7,7 @@ from modules.crawler import *
 from modules.analyseUtility import *
 
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
+# https://cloud.mongodb.com/v2/5be630d0cf09a2a588b0055e#clusters
 app = Flask(__name__)
 
 
@@ -27,17 +28,36 @@ def start():
     # return render_template('index.html', content=result_json)
     # return str(result_json)
 
+
 @app.route('/snapshot')
 def show_today_snapshot():
-    today_data = get_data_yahoo()
-
     today = datetime.datetime.today().strftime('%Y-%m-%d')
-    analyse_result = analyse_trend(today_data[today])
+
+    result = get_db().find_one('stocks', {'key': today})
+
+    if result is None:
+        result = get_data_yahoo()
+
+    analyse_result = analyse_trend(result)
 
     html_string = json2table.convert(analyse_result)
     # return render_template('index.html', content=analyse_result)
     return html_string
 
+
+def get_db():
+    if 'db' not in g:
+        db_config = {'URI': 'mongodb+srv://root:root@cluster0-50fxe.mongodb.net/admin?retryWrites=true'}
+        g.db = Mongodb(db_config, 'sharkDB')
+    return g.db
+
+
+@app.teardown_appcontext
+def teardown_db(error):
+    db = g.pop('db', None)
+
+    if db is not None:
+        db.close_conn()
 
 
 if __name__ == '__main__':
