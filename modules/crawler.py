@@ -84,5 +84,5 @@ def save_to_mongoDB(collection, dict):
     except Exception as db_exception:
         print(str(db_exception))
 
-# get_data_yahoo()
+get_data_yahoo()
 # save_to_mongoDB()
