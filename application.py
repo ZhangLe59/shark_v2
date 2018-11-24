@@ -11,6 +11,11 @@ from modules.analyseUtility import *
 app = Flask(__name__)
 
 
+@app.route("/")
+def hello():
+    return "Welcome to Shark V2, The Quick Analytics Platform for Global Stocks"
+
+
 @app.route('/showall')
 def start():
     db_config = {'URI': 'mongodb+srv://root:root@cluster0-50fxe.mongodb.net/admin?retryWrites=true'}
