@@ -8,8 +8,11 @@ import pymongo
 
 # https://www.crummy.com/software/BeautifulSoup/bs4/doc/#navigating-the-tree
 
-stock_list = ['0700.HK', 'AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA', 'TSLA',
-              '2318.HK', '2202.HK', '1211.HK', 'AU8U.SI', 'IAG.AX', 'A2M.AX']
+stock_list = ['AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA', 'TSLA',
+              '0700.HK', '2318.HK', '2202.HK', '1211.HK', '6060.HK', '1579.HK', '6862.HK', '1810.HK', '3690.HK',
+              'AU8U.SI', 'D05.SI',
+              'IAG.AX',
+              'A2M.AX']
 
 
 # stock_list = ['0700.HK', 'AMZN']
@@ -83,6 +86,7 @@ def save_to_mongoDB(collection, dict):
         return _id
     except Exception as db_exception:
         print(str(db_exception))
+
 
 get_data_yahoo()
 # save_to_mongoDB()
