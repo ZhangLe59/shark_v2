@@ -1,0 +1,462 @@
+[
+  {
+    "stock_pool": [
+      "0700-HK",
+      "AMZN"
+    ],
+    "data": {
+      "0700-HK": {
+        "sourceInterval": 15,
+        "quoteSourceName": "Delayed Quote",
+        "regularMarketOpen": {
+          "raw": 293,
+          "fmt": "293.000"
+        },
+        "exchange": "HKG",
+        "regularMarketTime": {
+          "raw": 1543201385,
+          "fmt": "11:03AM HKT"
+        },
+        "fiftyTwoWeekRange": {
+          "raw": "251.4 - 476.6",
+          "fmt": "251.40 - 476.60"
+        },
+        "sharesOutstanding": {
+          "raw": 9455330304,
+          "fmt": "9.455B",
+          "longFmt": "9,455,330,304"
+        },
+        "regularMarketDayHigh": {
+          "raw": 297.8,
+          "fmt": "297.800"
+        },
+        "shortName": "TENCENT",
+        "longName": "Tencent Holdings Limited",
+        "exchangeTimezoneName": "Asia/Hong_Kong",
+        "regularMarketChange": {
+          "raw": 5.399994,
+          "fmt": "5.400"
+        },
+        "regularMarketPreviousClose": {
+          "raw": 291.2,
+          "fmt": "291.200"
+        },
+        "fiftyTwoWeekHighChange": {
+          "raw": -180,
+          "fmt": "-180.00"
+        },
+        "exchangeTimezoneShortName": "HKT",
+        "fiftyTwoWeekLowChange": {
+          "raw": 45.200012,
+          "fmt": "45.20"
+        },
+        "exchangeDataDelayedBy": 0,
+        "regularMarketDayLow": {
+          "raw": 291.8,
+          "fmt": "291.800"
+        },
+        "priceHint": 3,
+        "currency": "HKD",
+        "regularMarketPrice": {
+          "raw": 296.6,
+          "fmt": "296.600"
+        },
+        "regularMarketVolume": {
+          "raw": 5339775,
+          "fmt": "5.34M",
+          "longFmt": "5,339,775"
+        },
+        "isLoading": false,
+        "gmtOffSetMilliseconds": 28800000,
+        "region": "US",
+        "marketState": "REGULAR",
+        "marketCap": {
+          "raw": 2804451115008,
+          "fmt": "2.804T",
+          "longFmt": "2,804,451,115,008"
+        },
+        "quoteType": "EQUITY",
+        "invalid": false,
+        "symbol": "0700.HK",
+        "language": "en-US",
+        "fiftyTwoWeekLowChangePercent": {
+          "raw": 0.17979321,
+          "fmt": "17.98%"
+        },
+        "regularMarketDayRange": {
+          "raw": "291.8 - 297.8",
+          "fmt": "291.80 - 297.80"
+        },
+        "messageBoardId": "finmb_11042136",
+        "fiftyTwoWeekHigh": {
+          "raw": 476.6,
+          "fmt": "476.600"
+        },
+        "fiftyTwoWeekHighChangePercent": {
+          "raw": -0.3776752,
+          "fmt": "-37.77%"
+        },
+        "uuid": "341c2e2e-93bb-3eaf-b5b5-92ea7815949e",
+        "market": "hk_market",
+        "fiftyTwoWeekLow": {
+          "raw": 251.4,
+          "fmt": "251.400"
+        },
+        "regularMarketChangePercent": {
+          "raw": 1.8543935,
+          "fmt": "1.85%"
+        },
+        "fullExchangeName": "HKSE",
+        "tradeable": false,
+        "Beta (3Y Monthly) ": 1.25,
+        "52-Week Change 3": -29.22,
+        "S&P500 52-Week Change 3": 1.86,
+        "52 Week High 3": 476.6,
+        "52 Week Low 3": 251.4,
+        "50-Day Moving Average 3": 282.069,
+        "200-Day Moving Average 3": 347.685
+      },
+      "AMZN": {
+        "sourceInterval": 15,
+        "regularMarketOpen": {
+          "raw": 1517,
+          "fmt": "1,517.00"
+        },
+        "exchange": "NMS",
+        "regularMarketTime": {
+          "raw": 1542996001,
+          "fmt": "1:00PM EST"
+        },
+        "fiftyTwoWeekRange": {
+          "raw": "1124.74 - 2050.5",
+          "fmt": "1,124.74 - 2,050.50"
+        },
+        "sharesOutstanding": {
+          "raw": 488968992,
+          "fmt": "488.969M",
+          "longFmt": "488,968,992"
+        },
+        "regularMarketDayHigh": {
+          "raw": 1536.2,
+          "fmt": "1,536.20"
+        },
+        "shortName": "Amazon.com, Inc.",
+        "longName": "Amazon.com, Inc.",
+        "exchangeTimezoneName": "America/New_York",
+        "regularMarketChange": {
+          "raw": -14.669922,
+          "fmt": "-14.67"
+        },
+        "regularMarketPreviousClose": {
+          "raw": 1516.73,
+          "fmt": "1,516.73"
+        },
+        "fiftyTwoWeekHighChange": {
+          "raw": -548.43994,
+          "fmt": "-548.44"
+        },
+        "exchangeTimezoneShortName": "EST",
+        "fiftyTwoWeekLowChange": {
+          "raw": 377.32007,
+          "fmt": "377.32"
+        },
+        "exchangeDataDelayedBy": 0,
+        "regularMarketDayLow": {
+          "raw": 1501.81,
+          "fmt": "1,501.81"
+        },
+        "priceHint": 2,
+        "currency": "USD",
+        "regularMarketPrice": {
+          "raw": 1502.06,
+          "fmt": "1,502.06"
+        },
+        "regularMarketVolume": {
+          "raw": 2707642,
+          "fmt": "2.708M",
+          "longFmt": "2,707,642"
+        },
+        "isLoading": false,
+        "gmtOffSetMilliseconds": -18000000,
+        "region": "US",
+        "marketState": "CLOSED",
+        "marketCap": {
+          "raw": 734460772352,
+          "fmt": "734.461B",
+          "longFmt": "734,460,772,352"
+        },
+        "quoteType": "EQUITY",
+        "invalid": false,
+        "symbol": "AMZN",
+        "language": "en-US",
+        "fiftyTwoWeekLowChangePercent": {
+          "raw": 0.33547315,
+          "fmt": "33.55%"
+        },
+        "regularMarketDayRange": {
+          "raw": "1501.81 - 1536.2",
+          "fmt": "1,501.81 - 1,536.20"
+        },
+        "messageBoardId": "finmb_18749",
+        "fiftyTwoWeekHigh": {
+          "raw": 2050.5,
+          "fmt": "2,050.50"
+        },
+        "fiftyTwoWeekHighChangePercent": {
+          "raw": -0.26746646,
+          "fmt": "-26.75%"
+        },
+        "uuid": "261fd26b-0151-3813-b0d0-97e4ed4c6505",
+        "market": "us_market",
+        "fiftyTwoWeekLow": {
+          "raw": 1124.74,
+          "fmt": "1,124.74"
+        },
+        "regularMarketChangePercent": {
+          "raw": -0.9672072,
+          "fmt": "-0.97%"
+        },
+        "fullExchangeName": "NasdaqGS",
+        "tradeable": true,
+        "Beta (3Y Monthly) ": 1.94,
+        "52-Week Change 3": 26.83,
+        "S&P500 52-Week Change 3": 1.86,
+        "52 Week High 3": 2050.5,
+        "52 Week Low 3": 1124.74,
+        "50-Day Moving Average 3": 1682.08,
+        "200-Day Moving Average 3": 1774.59
+      }
+    },
+    "key": "2018-11-26"
+  },
+  {
+    "stock_pool": [
+      "0700-HK",
+      "AMZN"
+    ],
+    "data": {
+      "0700-HK": {
+        "sourceInterval": 15,
+        "quoteSourceName": "Delayed Quote",
+        "regularMarketOpen": {
+          "raw": 293,
+          "fmt": "293.000"
+        },
+        "exchange": "HKG",
+        "regularMarketTime": {
+          "raw": 1543201471,
+          "fmt": "11:04AM HKT"
+        },
+        "fiftyTwoWeekRange": {
+          "raw": "251.4 - 476.6",
+          "fmt": "251.40 - 476.60"
+        },
+        "sharesOutstanding": {
+          "raw": 9455330304,
+          "fmt": "9.455B",
+          "longFmt": "9,455,330,304"
+        },
+        "regularMarketDayHigh": {
+          "raw": 297.8,
+          "fmt": "297.800"
+        },
+        "shortName": "TENCENT",
+        "longName": "Tencent Holdings Limited",
+        "exchangeTimezoneName": "Asia/Hong_Kong",
+        "regularMarketChange": {
+          "raw": 5.799988,
+          "fmt": "5.800"
+        },
+        "regularMarketPreviousClose": {
+          "raw": 291.2,
+          "fmt": "291.200"
+        },
+        "fiftyTwoWeekHighChange": {
+          "raw": -179.6,
+          "fmt": "-179.60"
+        },
+        "exchangeTimezoneShortName": "HKT",
+        "fiftyTwoWeekLowChange": {
+          "raw": 45.600006,
+          "fmt": "45.60"
+        },
+        "exchangeDataDelayedBy": 0,
+        "regularMarketDayLow": {
+          "raw": 291.8,
+          "fmt": "291.800"
+        },
+        "priceHint": 3,
+        "currency": "HKD",
+        "regularMarketPrice": {
+          "raw": 297,
+          "fmt": "297.000"
+        },
+        "regularMarketVolume": {
+          "raw": 5384475,
+          "fmt": "5.384M",
+          "longFmt": "5,384,475"
+        },
+        "isLoading": false,
+        "gmtOffSetMilliseconds": 28800000,
+        "region": "US",
+        "marketState": "REGULAR",
+        "marketCap": {
+          "raw": 2808233066496,
+          "fmt": "2.808T",
+          "longFmt": "2,808,233,066,496"
+        },
+        "quoteType": "EQUITY",
+        "invalid": false,
+        "symbol": "0700.HK",
+        "language": "en-US",
+        "fiftyTwoWeekLowChangePercent": {
+          "raw": 0.18138428,
+          "fmt": "18.14%"
+        },
+        "regularMarketDayRange": {
+          "raw": "291.8 - 297.8",
+          "fmt": "291.80 - 297.80"
+        },
+        "messageBoardId": "finmb_11042136",
+        "fiftyTwoWeekHigh": {
+          "raw": 476.6,
+          "fmt": "476.600"
+        },
+        "fiftyTwoWeekHighChangePercent": {
+          "raw": -0.37683594,
+          "fmt": "-37.68%"
+        },
+        "uuid": "341c2e2e-93bb-3eaf-b5b5-92ea7815949e",
+        "market": "hk_market",
+        "fiftyTwoWeekLow": {
+          "raw": 251.4,
+          "fmt": "251.400"
+        },
+        "regularMarketChangePercent": {
+          "raw": 1.991754,
+          "fmt": "1.99%"
+        },
+        "fullExchangeName": "HKSE",
+        "tradeable": false,
+        "Beta (3Y Monthly) ": 1.25,
+        "52-Week Change 3": -29.22,
+        "S&P500 52-Week Change 3": 1.86,
+        "52 Week High 3": 476.6,
+        "52 Week Low 3": 251.4,
+        "50-Day Moving Average 3": 282.069,
+        "200-Day Moving Average 3": 347.685
+      },
+      "AMZN": {
+        "sourceInterval": 15,
+        "regularMarketOpen": {
+          "raw": 1517,
+          "fmt": "1,517.00"
+        },
+        "exchange": "NMS",
+        "regularMarketTime": {
+          "raw": 1542996001,
+          "fmt": "1:00PM EST"
+        },
+        "fiftyTwoWeekRange": {
+          "raw": "1124.74 - 2050.5",
+          "fmt": "1,124.74 - 2,050.50"
+        },
+        "sharesOutstanding": {
+          "raw": 488968992,
+          "fmt": "488.969M",
+          "longFmt": "488,968,992"
+        },
+        "regularMarketDayHigh": {
+          "raw": 1536.2,
+          "fmt": "1,536.20"
+        },
+        "shortName": "Amazon.com, Inc.",
+        "longName": "Amazon.com, Inc.",
+        "exchangeTimezoneName": "America/New_York",
+        "regularMarketChange": {
+          "raw": -14.669922,
+          "fmt": "-14.67"
+        },
+        "regularMarketPreviousClose": {
+          "raw": 1516.73,
+          "fmt": "1,516.73"
+        },
+        "fiftyTwoWeekHighChange": {
+          "raw": -548.43994,
+          "fmt": "-548.44"
+        },
+        "exchangeTimezoneShortName": "EST",
+        "fiftyTwoWeekLowChange": {
+          "raw": 377.32007,
+          "fmt": "377.32"
+        },
+        "exchangeDataDelayedBy": 0,
+        "regularMarketDayLow": {
+          "raw": 1501.81,
+          "fmt": "1,501.81"
+        },
+        "priceHint": 2,
+        "currency": "USD",
+        "regularMarketPrice": {
+          "raw": 1502.06,
+          "fmt": "1,502.06"
+        },
+        "regularMarketVolume": {
+          "raw": 2707642,
+          "fmt": "2.708M",
+          "longFmt": "2,707,642"
+        },
+        "isLoading": false,
+        "gmtOffSetMilliseconds": -18000000,
+        "region": "US",
+        "marketState": "CLOSED",
+        "marketCap": {
+          "raw": 734460772352,
+          "fmt": "734.461B",
+          "longFmt": "734,460,772,352"
+        },
+        "quoteType": "EQUITY",
+        "invalid": false,
+        "symbol": "AMZN",
+        "language": "en-US",
+        "fiftyTwoWeekLowChangePercent": {
+          "raw": 0.33547315,
+          "fmt": "33.55%"
+        },
+        "regularMarketDayRange": {
+          "raw": "1501.81 - 1536.2",
+          "fmt": "1,501.81 - 1,536.20"
+        },
+        "messageBoardId": "finmb_18749",
+        "fiftyTwoWeekHigh": {
+          "raw": 2050.5,
+          "fmt": "2,050.50"
+        },
+        "fiftyTwoWeekHighChangePercent": {
+          "raw": -0.26746646,
+          "fmt": "-26.75%"
+        },
+        "uuid": "261fd26b-0151-3813-b0d0-97e4ed4c6505",
+        "market": "us_market",
+        "fiftyTwoWeekLow": {
+          "raw": 1124.74,
+          "fmt": "1,124.74"
+        },
+        "regularMarketChangePercent": {
+          "raw": -0.9672072,
+          "fmt": "-0.97%"
+        },
+        "fullExchangeName": "NasdaqGS",
+        "tradeable": true,
+        "Beta (3Y Monthly) ": 1.94,
+        "52-Week Change 3": 26.83,
+        "S&P500 52-Week Change 3": 1.86,
+        "52 Week High 3": 2050.5,
+        "52 Week Low 3": 1124.74,
+        "50-Day Moving Average 3": 1682.08,
+        "200-Day Moving Average 3": 1774.59
+      }
+    },
+    "key": "2018-11-26"
+  }
+]

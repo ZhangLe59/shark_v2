@@ -15,9 +15,6 @@ stock_list = ['AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'S
               'A2M.AX']
 
 
-# stock_list = ['0700.HK', 'AMZN']
-
-
 def get_data_yahoo():
     collection = connect_to_mongoDB()
 
@@ -60,11 +57,12 @@ def get_data_yahoo():
         except Exception as crawl_exception:
             print(str(crawl_exception))
 
+    result['key'] = datetime.datetime.today().strftime('%Y-%m-%d')
     result['stock_pool'] = stock_list
     result['data'] = data_dict
-    result['key'] = datetime.datetime.today().strftime('%Y-%m-%d')
 
-    save_to_mongoDB(collection, result)
+    save_to_mongo_db(collection, result)
+    # save_to_local_file(result)
 
     return result
 
@@ -78,15 +76,22 @@ def connect_to_mongoDB():
         print(str(db_exception))
 
 
-def save_to_mongoDB(collection, dict):
+def save_to_mongo_db(collection, dict):
     try:
-        _id = collection.insert_one(dict).inserted_id
+        old_document = collection.find_one({'key': dict['key']})
+        if old_document is None:
+            _id = collection.insert_one(dict).inserted_id
 
-        print('Insertion successful')
-        return _id
+            print('Insertion successful')
+            return _id
+        else:
+            _id = old_document['_id']
+            collection.replace_one({'_id': _id}, dict)
+            new_document = collection.find_one({'_id': _id})
+            print('Existing document has been replaced %s', new_document['_id'])
     except Exception as db_exception:
         print(str(db_exception))
 
 
-get_data_yahoo()
-# save_to_mongoDB()
+if __name__ == "__main__":
+    get_data_yahoo()
