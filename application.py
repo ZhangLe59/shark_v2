@@ -51,6 +51,7 @@ def show_today_snapshot():
 @app.route('/crawl')
 def crawl_today_raw():
     get_data_yahoo()
+    return 'Data Crawling is completed.'
 
 
 def get_db():
