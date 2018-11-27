@@ -4,6 +4,7 @@ from pymongo import errors
 import json
 from datetime import date, datetime
 import logging
+import pymongo
 
 logger = logging.getLogger('Shark Logger')
 
@@ -107,3 +108,30 @@ class Mongodb():
         else:
             for row in rows:
                 print(json.dumps(row, indent=4, ensure_ascii=False, default=self.__default))
+
+
+
+def connect_to_mongoDB(collection_name):
+    try:
+        client = pymongo.MongoClient("mongodb+srv://root:root@cluster0-50fxe.mongodb.net/admin?retryWrites=true")
+        collection = client.sharkDB[collection_name]
+        return collection
+    except Exception as db_exception:
+        print(str(db_exception))
+
+
+def save_to_mongo_db(collection, dict):
+    try:
+        old_document = collection.find_one({'key': dict['key']})
+        if old_document is None:
+            _id = collection.insert_one(dict).inserted_id
+
+            print('Insertion successful')
+            return _id
+        else:
+            _id = old_document['_id']
+            collection.replace_one({'_id': _id}, dict)
+            new_document = collection.find_one({'_id': _id})
+            print('Existing document has been replaced %s', new_document['_id'])
+    except Exception as db_exception:
+        print(str(db_exception))

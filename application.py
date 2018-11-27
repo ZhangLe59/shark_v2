@@ -25,7 +25,6 @@ def start():
     result_json = []
     for doc in result_cursor:
         doc.pop('_id')
-        result_json.append(json.dumps(doc))
 
     return json2table.convert(doc, "LEFT_TO_RIGHT", {'border': 1})
     # return render_template('index.html', content=result_json)
@@ -36,22 +35,26 @@ def start():
 def show_today_snapshot():
     today = datetime.datetime.today().strftime('%Y-%m-%d')
 
-    result = get_db().find_one('stocks', {'key': today})
+    analyse_result = get_db().find_one('analysis', {'key': today})
 
-    if result is None:
-        result = get_data_yahoo()
+    if analyse_result is None:
+        return 'Analysis result is not ready yet.'
 
-    analyse_result = analyse_trend(result)
-
-    html_string = json2table.convert(analyse_result)
+    analyse_result.pop('_id')
+    html_string = json2table.convert(analyse_result, "LEFT_TO_RIGHT", {'border': 1})
     # return render_template('index.html', content=analyse_result)
     return html_string
 
 
 @app.route('/crawl')
 def crawl_today_raw():
-    get_data_yahoo()
-    return 'Data Crawling is completed.'
+    try:
+        result = get_data_yahoo()
+        analyse_trend(result)
+    except Exception as e:
+        return str(e)
+
+    return 'Data has been crawled and analysed.'
 
 
 def get_db():
