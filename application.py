@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, g
+from flask import Flask, g
 from json2table import json2table
 
 from modules.DBUtility import *
@@ -22,8 +22,6 @@ def start():
     shark_db = Mongodb(db_config, 'sharkDB')
     # shark_db.output_rows('stocks')
     result_cursor = shark_db.find_all('stocks', )
-    # cursor_list = list(result_cursor)
-    # result_json = json.dumps(cursor_list)
     result_json = []
     for doc in result_cursor:
         doc.pop('_id')
@@ -48,6 +46,11 @@ def show_today_snapshot():
     html_string = json2table.convert(analyse_result)
     # return render_template('index.html', content=analyse_result)
     return html_string
+
+
+@app.route('/crawl')
+def crawl_today_raw():
+    get_data_yahoo()
 
 
 def get_db():

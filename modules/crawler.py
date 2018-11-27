@@ -5,7 +5,7 @@ import re
 import json
 import requests
 import pymongo
-
+from modules.analyseUtility import *
 # https://www.crummy.com/software/BeautifulSoup/bs4/doc/#navigating-the-tree
 
 stock_list = ['AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA', 'TSLA',
@@ -94,4 +94,5 @@ def save_to_mongo_db(collection, dict):
 
 
 if __name__ == "__main__":
-    get_data_yahoo()
+    raw_data = get_data_yahoo()
+
