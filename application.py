@@ -6,6 +6,8 @@ from flask import render_template
 from modules.crawler import *
 from modules.analyseUtility import *
 
+from datetime import date
+
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
 # https://cloud.mongodb.com/v2/5be630d0cf09a2a588b0055e#clusters
 app = Flask(__name__)
@@ -33,7 +35,7 @@ def start():
 
 @app.route('/snapshot')
 def show_today_snapshot():
-    today = datetime.datetime.today().strftime('%Y-%m-%d')
+    today = date.today().strftime('%Y-%m-%d')
 
     analyse_result = get_db().find_one('analysis', {'key': today})
 

@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 from bs4 import BeautifulSoup
 import re
 import json
@@ -57,9 +57,10 @@ def get_data_yahoo():
             print(stock + ' loaded')
 
         except Exception as crawl_exception:
+            data_dict.pop(new_stock)
             print(str(crawl_exception))
 
-    result['key'] = datetime.datetime.today().strftime('%Y-%m-%d')
+    result['key'] = date.today().strftime('%Y-%m-%d')
     result['stock_pool'] = stock_list
     result['data'] = data_dict
 
@@ -68,6 +69,6 @@ def get_data_yahoo():
 
     return result
 
-
-if __name__ == "__main__":
-    raw_data = get_data_yahoo()
+#
+# if __name__ == "__main__":
+#     raw_data = get_data_yahoo()
