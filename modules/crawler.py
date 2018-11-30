@@ -23,6 +23,7 @@ def get_data_yahoo():
     result = {}
     data_dict = {}
 
+    new_stock =''
     for idx, stock in enumerate(stock_list):
         try:
             link = "https://finance.yahoo.com/quote/" + stock + "/key-statistics"
