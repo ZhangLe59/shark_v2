@@ -23,7 +23,7 @@ def get_data_yahoo():
     result = {}
     data_dict = {}
 
-    new_stock =''
+    new_stock = ''
     for idx, stock in enumerate(stock_list):
         try:
             link = "https://finance.yahoo.com/quote/" + stock + "/key-statistics"
@@ -54,6 +54,7 @@ def get_data_yahoo():
                         except Exception as e:
                             value = 999999999
                         data_dict[new_stock][key] = value
+                    break
 
             print(stock + ' loaded')
 
