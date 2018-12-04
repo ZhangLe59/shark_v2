@@ -3,15 +3,26 @@ from datetime import date, timedelta
 
 
 def analyse_trend(_dict):
+    logger = logging.getLogger(__name__)
     collection = connect_to_mongoDB('analysis')
     raw_data_collection = connect_to_mongoDB('stocks')
 
     # Get previous analysis data for status change which will trigger buy/sell action
     yesterday = date.today() - timedelta(1)
+    logger.info('The date used for previous day is ' + str(yesterday))
     yesterday__strftime = yesterday.strftime('%Y-%m-%d')
 
     yesterday_analysis = collection.find_one({'key': yesterday__strftime})
     yesterday_raw_data = raw_data_collection.find_one({'key': yesterday__strftime})
+
+    while (yesterday_analysis is None or yesterday_raw_data is None):
+        print('There is gap in data, pushing 1 more day back')
+        yesterday = yesterday - timedelta(1)
+        yesterday__strftime = yesterday.strftime('%Y-%m-%d')
+        yesterday_analysis = collection.find_one({'key': yesterday__strftime})
+        yesterday_raw_data = raw_data_collection.find_one({'key': yesterday__strftime})
+
+    print('Found previous data for analysing!')
 
     full_result = {}
     result = {}

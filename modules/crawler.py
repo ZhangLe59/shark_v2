@@ -1,9 +1,7 @@
-from datetime import date
-from bs4 import BeautifulSoup
 import re
-import json
+
 import requests
-from modules.DBUtility import *
+from bs4 import BeautifulSoup
 
 from modules.analyseUtility import *
 
@@ -18,6 +16,8 @@ stock_list = ['AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'S
 
 
 def get_data_yahoo():
+    logger = logging.getLogger(__name__)
+
     collection = connect_to_mongoDB('stocks')
 
     result = {}
@@ -34,8 +34,13 @@ def get_data_yahoo():
 
             pattern = "{\"quoteData\":{" + "\"" + stock + "\":{*(.+?)e}"
             p = re.compile(pattern)
-            dict_string = "{\"" + stock + "\":{" + p.search(the_page.decode("utf-8")).group(1) + "e}}"
-            # print(dict_string)
+
+            try:
+                dict_string = "{\"" + stock + "\":{" + p.search(the_page.decode("utf-8")).group(1) + "e}}"
+            except Exception as e:
+                print(stock + ' encountered error, skip')
+                logger.error(str(e))
+                continue
 
             new_stock = stock.replace('.', '-')
             stock_list[idx] = new_stock
@@ -71,6 +76,6 @@ def get_data_yahoo():
 
     return result
 
-#
-# if __name__ == "__main__":
-#     raw_data = get_data_yahoo()
+
+if __name__ == "__main__":
+    raw_data = get_data_yahoo()
