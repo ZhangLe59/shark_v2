@@ -49,10 +49,10 @@ def analyse_trend(_dict):
             comment['conclusion'] = 'AWESOME, Hold this stock! '
         elif fifty_day_ma < marketPrice:
             comment['conclusion'] = 'Seems effective short-term rebounce. But you have to check Trend_1'
-        elif marketPrice < fifty_day_ma < twohundred_day_ma\
+        elif marketPrice < fifty_day_ma < twohundred_day_ma \
                 and fifty_day_ma < yest_fifty_day_ma:
             comment['conclusion'] = 'This is really bad. '
-        elif marketPrice < fifty_day_ma > twohundred_day_ma\
+        elif marketPrice < fifty_day_ma > twohundred_day_ma \
                 and fifty_day_ma > yest_fifty_day_ma:
             comment['conclusion'] = 'Watch out, it will be Awesome if it breakthrough ' + str(fifty_day_ma)
         else:
@@ -60,7 +60,9 @@ def analyse_trend(_dict):
 
         if not yesterday_analysis is None:
             if comment['conclusion'][0:10] != yesterday_analysis['data'][stock]['comment']['conclusion'][0:10]:
-                comment['HIGH_ALERT'] = 'Turning point appeared! Act Fast!'
+                comment['HIGH_ALERT'] = 'Previous Conclusion: ' + \
+                                        yesterday_analysis['data'][stock]['comment'][
+                                            'conclusion'] + '\n' + 'Current Conclusion: ' + comment['conclusion']
 
             if fifty_day_ma < yest_fifty_day_ma:
                 comment['TREND_1'] = 'Middle Term Downward Trending, SELL Fast'

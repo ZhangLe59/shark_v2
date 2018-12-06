@@ -5,7 +5,7 @@ from modules.DBUtility import *
 from flask import render_template
 from modules.crawler import *
 from modules.analyseUtility import *
-
+import traceback
 from datetime import date
 
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
@@ -57,7 +57,7 @@ def crawl_today_raw():
         result = get_data_yahoo()
         analyse_trend(result)
     except Exception as e:
-        return str(e)
+        crawl_today_raw()
 
     return 'Data has been crawled and analysed.'
 
