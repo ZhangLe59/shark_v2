@@ -12,6 +12,8 @@ from datetime import date
 # https://cloud.mongodb.com/v2/5be630d0cf09a2a588b0055e#clusters
 app = Flask(__name__)
 
+logger = logging.getLogger(__name__)
+
 
 @app.route("/")
 def hello():
@@ -51,6 +53,7 @@ def show_today_snapshot():
 @app.route('/crawl')
 def crawl_today_raw():
     try:
+        logger.info('Started crawling')
         result = get_data_yahoo()
         analyse_trend(result)
     except Exception as e:
