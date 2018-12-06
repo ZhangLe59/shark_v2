@@ -58,7 +58,7 @@ def analyse_trend(_dict):
         else:
             comment['conclusion'] = 'Need further investigation'
 
-        if not yesterday_analysis is None:
+        if not yesterday_analysis is None and stock in yesterday_analysis['data']:
             if comment['conclusion'][0:10] != yesterday_analysis['data'][stock]['comment']['conclusion'][0:10]:
                 comment['HIGH_ALERT'] = 'Previous Conclusion: ' + \
                                         yesterday_analysis['data'][stock]['comment'][
@@ -70,7 +70,7 @@ def analyse_trend(_dict):
                 comment['TREND_1'] = 'Middle Term turned Upward/Flat Trending, Start BUYing'
 
             if twohundred_day_ma < yest_twohundred_day_ma \
-                    and marketPrice < twohundred_day_ma:
+                    and marketPrice < fifty_day_ma:
                 comment['TREND_2'] = "Long Term Downward Trending. This stock is DOOMED!!"
             else:
                 comment['TREND_2'] = 'Long Term Upward/Flat Trending. Watch closely'

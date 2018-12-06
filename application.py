@@ -57,8 +57,8 @@ def crawl_today_raw():
         result = get_data_yahoo()
         analyse_trend(result)
     except Exception as e:
+        print(e)
         crawl_today_raw()
-
     return 'Data has been crawled and analysed.'
 
 
