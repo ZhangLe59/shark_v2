@@ -35,30 +35,32 @@ def analyse_trend(_dict):
         fifty_day_ma = data[stock]['50-Day Moving Average 3']
         twohundred_day_ma = data[stock]['200-Day Moving Average 3']
 
-        yest_fifty_day_ma = yesterday_raw_data['data'][stock]['50-Day Moving Average 3']
-        yest_twohundred_day_ma = yesterday_raw_data['data'][stock]['200-Day Moving Average 3']
+        if not yesterday_analysis is None and stock in yesterday_analysis['data'] and stock in yesterday_raw_data[
+            'data']:
 
-        yearly_chg = data[stock]['52-Week Change 3']
-        sp500_yearly_chg = data[stock]['S&P500 52-Week Change 3']
+            yest_fifty_day_ma = yesterday_raw_data['data'][stock]['50-Day Moving Average 3']
+            yest_twohundred_day_ma = yesterday_raw_data['data'][stock]['200-Day Moving Average 3']
 
-        display_name = data[stock]['shortName'] + ' (' + stock + ')'
+            yearly_chg = data[stock]['52-Week Change 3']
+            sp500_yearly_chg = data[stock]['S&P500 52-Week Change 3']
 
-        comment = {}
-        if twohundred_day_ma < fifty_day_ma < marketPrice \
-                and fifty_day_ma > yest_fifty_day_ma and twohundred_day_ma > yest_twohundred_day_ma:
-            comment['conclusion'] = 'AWESOME, Hold this stock! '
-        elif fifty_day_ma < marketPrice:
-            comment['conclusion'] = 'Seems effective short-term rebounce. But you have to check Trend_1'
-        elif marketPrice < fifty_day_ma < twohundred_day_ma \
-                and fifty_day_ma < yest_fifty_day_ma:
-            comment['conclusion'] = 'This is really bad. '
-        elif marketPrice < fifty_day_ma > twohundred_day_ma \
-                and fifty_day_ma > yest_fifty_day_ma:
-            comment['conclusion'] = 'Watch out, it will be Awesome if it breakthrough ' + str(fifty_day_ma)
-        else:
-            comment['conclusion'] = 'Need further investigation'
+            display_name = data[stock]['shortName'] + ' (' + stock + ')'
 
-        if not yesterday_analysis is None and stock in yesterday_analysis['data']:
+            comment = {}
+            if twohundred_day_ma < fifty_day_ma < marketPrice \
+                    and fifty_day_ma > yest_fifty_day_ma and twohundred_day_ma > yest_twohundred_day_ma:
+                comment['conclusion'] = 'AWESOME, Hold this stock! '
+            elif fifty_day_ma < marketPrice:
+                comment['conclusion'] = 'Seems effective short-term rebounce. But you have to check Trend_1'
+            elif marketPrice < fifty_day_ma < twohundred_day_ma \
+                    and fifty_day_ma < yest_fifty_day_ma:
+                comment['conclusion'] = 'This is really bad. '
+            elif marketPrice < fifty_day_ma > twohundred_day_ma \
+                    and fifty_day_ma > yest_fifty_day_ma:
+                comment['conclusion'] = 'Watch out, it will be Awesome if it breakthrough ' + str(fifty_day_ma)
+            else:
+                comment['conclusion'] = 'Need further investigation'
+
             if comment['conclusion'][0:10] != yesterday_analysis['data'][stock]['comment']['conclusion'][0:10]:
                 comment['HIGH_ALERT'] = 'Previous Conclusion: ' + \
                                         yesterday_analysis['data'][stock]['comment'][
