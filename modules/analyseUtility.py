@@ -1,5 +1,8 @@
+from datetime import timedelta
+
+import pytz
+
 from modules.DBUtility import *
-from datetime import date, timedelta
 
 
 def analyse_trend(_dict):
@@ -8,7 +11,7 @@ def analyse_trend(_dict):
     raw_data_collection = connect_to_mongoDB('stocks')
 
     # Get previous analysis data for status change which will trigger buy/sell action
-    yesterday = date.today() - timedelta(1)
+    yesterday = datetime.now(pytz.timezone('Singapore')) - timedelta(1)
     logger.info('The date used for previous day is ' + str(yesterday))
     yesterday__strftime = yesterday.strftime('%Y-%m-%d')
 
@@ -84,7 +87,7 @@ def analyse_trend(_dict):
         full_result[stock] = individual_result
         # print(comment + display_name)
 
-    today__strftime = date.today().strftime('%Y-%m-%d')
+    today__strftime = datetime.now(pytz.timezone('Singapore')).strftime('%Y-%m-%d')
     result['key'] = today__strftime
     result['data'] = full_result
     save_to_mongo_db(collection, result)

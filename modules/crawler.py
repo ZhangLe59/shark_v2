@@ -16,7 +16,7 @@ def get_data_yahoo():
                   'TSLA', 'PLNT',
                   '0700.HK', '2318.HK', '2202.HK', '1211.HK', '6060.HK', '1579.HK', '6862.HK', '1810.HK', '3690.HK',
                   'AU8U.SI', 'D05.SI',
-                  'IAG.AX',  'A2M.AX',
+                  'IAG.AX', 'A2M.AX',
                   '600030.SS']
 
     collection = connect_to_mongoDB('stocks')
@@ -68,7 +68,7 @@ def get_data_yahoo():
             data_dict.pop(new_stock)
             print(str(crawl_exception))
 
-    result['key'] = date.today().strftime('%Y-%m-%d')
+    result['key'] = datetime.now(pytz.timezone('Singapore')).strftime('%Y-%m-%d')
     result['stock_pool'] = stock_list
     result['data'] = data_dict
 

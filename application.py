@@ -1,12 +1,7 @@
 from flask import Flask, g
 from json2table import json2table
 
-from modules.DBUtility import *
-from flask import render_template
 from modules.crawler import *
-from modules.analyseUtility import *
-import traceback
-from datetime import date
 
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
 # https://cloud.mongodb.com/v2/5be630d0cf09a2a588b0055e#clusters
@@ -37,7 +32,8 @@ def start():
 
 @app.route('/snapshot')
 def show_today_snapshot():
-    today = date.today().strftime('%Y-%m-%d')
+    # today = date.today().strftime('%Y-%m-%d')
+    today = datetime.now(pytz.timezone('Singapore')).strftime('%Y-%m-%d')
 
     analyse_result = get_db().find_one('analysis', {'key': today})
 
