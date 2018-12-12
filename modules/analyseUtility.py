@@ -47,7 +47,7 @@ def analyse_trend(_dict):
             yearly_chg = data[stock]['52-Week Change 3']
             sp500_yearly_chg = data[stock]['S&P500 52-Week Change 3']
 
-            display_name = data[stock]['shortName'] + ' (' + stock + ')'
+            display_name = data[stock]['shortName'] + ' (' + marketPrice + ')'
 
             comment = {}
             if twohundred_day_ma < fifty_day_ma < marketPrice \
