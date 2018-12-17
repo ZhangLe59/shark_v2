@@ -9,7 +9,7 @@ from modules.analyseUtility import *
 # https://www.crummy.com/software/BeautifulSoup/bs4/doc/#navigating-the-tree
 # possible alternative source: http://www.aastocks.com/en/stocks/analysis/company-fundamental/basic-information?symbol=00700
 
-def get_data_yahoo():
+def get_data_yahoo(shark_db):
     logger = logging.getLogger(__name__)
 
     stock_list = ['AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA',
@@ -19,7 +19,11 @@ def get_data_yahoo():
                   'IAG.AX', 'A2M.AX',
                   '600030.SS']
 
-    collection = connect_to_mongoDB('stocks')
+    # collection = connect_to_mongoDB('stocks')
+
+    # stock_collection = shark_db['stocks']
+
+    # stock_collection = shark_db.stocks
 
     result = {}
     data_dict = {}
@@ -72,11 +76,9 @@ def get_data_yahoo():
     result['stock_pool'] = stock_list
     result['data'] = data_dict
 
-    save_to_mongo_db(collection, result)
+    # save_to_mongo_db(stock_collection, result)
+
+    save_to_mongo_db(shark_db, 'stocks', result)
     # save_to_local_file(result)
 
     return result
-
-
-if __name__ == "__main__":
-    raw_data = get_data_yahoo()

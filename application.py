@@ -15,24 +15,21 @@ def hello():
     return "Welcome to Shark V2, The Quick Analytics Platform for Global Stocks"
 
 
-@app.route('/showall')
-def start():
-    db_config = {'URI': 'mongodb+srv://root:root@cluster0-50fxe.mongodb.net/admin?retryWrites=true'}
-    shark_db = Mongodb(db_config, 'sharkDB')
-    # shark_db.output_rows('stocks')
-    result_cursor = shark_db.find_all('stocks', )
-    result_json = []
+@app.route('/showrecent')
+def all_saved_data():
+    shark_db = get_db()
+
+    all_data = {}
+    result_cursor = shark_db.find_all('analysis').sort([('key', pymongo.DESCENDING)]).limit(7)
     for doc in result_cursor:
         doc.pop('_id')
+        all_data[doc['key']] = doc
 
-    return json2table.convert(doc, "LEFT_TO_RIGHT", {'border': 1})
-    # return render_template('index.html', content=result_json)
-    # return str(result_json)
+    return json2table.convert(all_data, "LEFT_TO_RIGHT", {'border': 1})
 
 
 @app.route('/snapshot')
 def show_today_snapshot():
-    # today = date.today().strftime('%Y-%m-%d')
     today = datetime.now(pytz.timezone('Singapore')).strftime('%Y-%m-%d')
 
     analyse_result = get_db().find_one('analysis', {'key': today})
@@ -50,12 +47,14 @@ def show_today_snapshot():
 def crawl_today_raw():
     try:
         logger.info('Started crawling')
-        result = get_data_yahoo()
-        analyse_trend(result)
+        shark_db = get_db()
+        result = get_data_yahoo(shark_db)
+        analyse_trend(shark_db, result)
+        return 'Data has been crawled and analysed.'
     except Exception as e:
         print(e)
-        crawl_today_raw()
-    return 'Data has been crawled and analysed.'
+        return e
+        # crawl_today_raw()
 
 
 def get_db():
