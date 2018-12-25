@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+
+<body>
+
+<script>
+    let json_string = '{{ content.data|tojson|safe}}';
+    let json_obj = JSON.parse(json_string);
+
+    let stocks = Object.keys(json_obj);
+
+    let web_content = `<table><thead><td>Stock</td><td>Snapshot</td></thead>`;
+
+    for (let i = 0; i < stocks.length; i++) {
+        let stock_json = json_obj[stocks[i]];
+        let shortName = stock_json['short_name'];
+        let conclusion = stock_json['comment']['conclusion'];
+
+        web_content += `<tr><td>${shortName}</td><td>${conclusion}</td></tr>`;
+    }
+
+    web_content += `</table>`;
+
+    document.body.innerHTML = web_content;
+
+</script>
+
+</body>
+
+</html>
+

@@ -1,10 +1,13 @@
-from flask import Flask, g
+import pymongo
+from flask import Flask, g, render_template, jsonify
 from json2table import json2table
 
 from modules.crawler import *
 
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
 # https://cloud.mongodb.com/v2/5be630d0cf09a2a588b0055e#clusters
+from modules.news import get_news_from_API
+
 app = Flask(__name__)
 
 logger = logging.getLogger(__name__)
@@ -38,9 +41,15 @@ def show_today_snapshot():
         return 'Analysis result is not ready yet.'
 
     analyse_result.pop('_id')
-    html_string = json2table.convert(analyse_result, "LEFT_TO_RIGHT", {'border': 1})
-    # return render_template('index.html', content=analyse_result)
-    return html_string
+    print(type(analyse_result))
+    # html_string = json2table.convert(analyse_result, "LEFT_TO_RIGHT", {'border': 1})
+    # return html_string
+
+    # json_data = jsonify(json.dumps(analyse_result))
+
+    # json_data = jsonify(analyse_result) #Returns full response with status
+
+    return render_template('snapshot.html', content=analyse_result)
 
 
 @app.route('/crawl')
@@ -55,6 +64,20 @@ def crawl_today_raw():
         print(e)
         return e
         # crawl_today_raw()
+
+
+@app.route('/news')
+def get_news():
+    try:
+        logger.info('Retriving news')
+        result = get_news_from_API()
+
+        html_string = json2table.convert(result, "LEFT_TO_RIGHT", {'border': 1})
+        return html_string
+
+    except Exception as e:
+        print(e)
+        return e
 
 
 def get_db():

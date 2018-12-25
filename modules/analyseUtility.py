@@ -51,35 +51,32 @@ def analyse_trend(shark_db, _dict):
             display_name = data[stock]['shortName'] + ' (' + str(marketPrice) + ')'
 
             comment = {}
-            if twohundred_day_ma < fifty_day_ma < marketPrice \
-                    and fifty_day_ma > yest_fifty_day_ma and twohundred_day_ma > yest_twohundred_day_ma:
-                comment['conclusion'] = 'AWESOME, Hold this stock! '
+            if twohundred_day_ma < fifty_day_ma < marketPrice :
+                comment['conclusion'] = '1_1_AWESOME, Hold this stock! '
             elif fifty_day_ma < marketPrice:
-                comment['conclusion'] = 'Seems effective short-term rebounce. But you have to check Trend_1'
-            elif marketPrice < fifty_day_ma < twohundred_day_ma \
-                    and fifty_day_ma < yest_fifty_day_ma:
-                comment['conclusion'] = 'This is really bad. '
+                comment['conclusion'] = '1_2_Seems effective short-term rebounce.'
+            elif marketPrice < fifty_day_ma < twohundred_day_ma:
+                comment['conclusion'] = '3_1_This is really bad. '
             elif marketPrice < fifty_day_ma > twohundred_day_ma \
                     and fifty_day_ma > yest_fifty_day_ma:
-                comment['conclusion'] = 'Watch out, it will be Awesome if it breakthrough ' + str(fifty_day_ma)
+                comment['conclusion'] = '2_1_Watch out, it will be Awesome if it breakthrough ' + str(fifty_day_ma)
             else:
                 comment['conclusion'] = 'Need further investigation'
 
             if comment['conclusion'][0:10] != yesterday_analysis['data'][stock]['comment']['conclusion'][0:10]:
                 comment['HIGH_ALERT'] = 'Previous Conclusion: ' + \
                                         yesterday_analysis['data'][stock]['comment'][
-                                            'conclusion'] + '\n' + 'Current Conclusion: ' + comment['conclusion']
+                                            'conclusion'] + ' ' + 'Current Conclusion: ' + comment['conclusion']
 
             if fifty_day_ma < yest_fifty_day_ma:
-                comment['TREND_1'] = 'Middle Term Downward Trending, SELL Fast'
+                comment['TREND_1'] = 'Downward Middle Term Trending.'
             else:
-                comment['TREND_1'] = 'Middle Term turned Upward/Flat Trending, Start BUYing'
+                comment['TREND_1'] = 'Upward/Flat Middle Term Trending.'
 
-            if twohundred_day_ma < yest_twohundred_day_ma \
-                    and marketPrice < fifty_day_ma:
-                comment['TREND_2'] = "Long Term Downward Trending. This stock is DOOMED!!"
+            if twohundred_day_ma < yest_twohundred_day_ma:
+                comment['TREND_2'] = "Downward Long Term Trending."
             else:
-                comment['TREND_2'] = 'Long Term Upward/Flat Trending. Watch closely'
+                comment['TREND_2'] = 'Upward/Flat Long Term Trending.'
 
         comment['vsSP500'] = 'Outperformed S&P 500' if yearly_chg > sp500_yearly_chg else 'Under performed S&P 500'
 
