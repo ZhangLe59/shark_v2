@@ -6,7 +6,7 @@ from modules.crawler import *
 
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
 # https://cloud.mongodb.com/v2/5be630d0cf09a2a588b0055e#clusters
-from modules.news import get_news_from_API
+# from modules.news import get_news_from_API
 
 app = Flask(__name__)
 
@@ -66,18 +66,18 @@ def crawl_today_raw():
         # crawl_today_raw()
 
 
-@app.route('/news')
-def get_news():
-    try:
-        logger.info('Retriving news')
-        result = get_news_from_API()
-
-        html_string = json2table.convert(result, "LEFT_TO_RIGHT", {'border': 1})
-        return html_string
-
-    except Exception as e:
-        print(e)
-        return e
+# @app.route('/news')
+# def get_news():
+#     try:
+#         logger.info('Retriving news')
+#         result = get_news_from_API()
+#
+#         html_string = json2table.convert(result, "LEFT_TO_RIGHT", {'border': 1})
+#         return html_string
+#
+#     except Exception as e:
+#         print(e)
+#         return e
 
 
 def get_db():

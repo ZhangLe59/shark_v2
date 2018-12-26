@@ -4,6 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Result</title>
+
+    <style>
+        .good {
+            background-color: limegreen;
+        }
+        .watch {
+            background-color: orange;
+        }
+        .bad {
+            background-color: red;
+        }
+        table, td, th {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,20 +30,33 @@
 
     let stocks = Object.keys(json_obj);
 
-    let web_content = `<table><thead><td>Stock</td><td>Snapshot</td></thead>`;
+    let web_content = `<table><tr><th>Stock</th><th>Snapshot</th></tr>`;
 
     for (let i = 0; i < stocks.length; i++) {
         let stock_json = json_obj[stocks[i]];
         let shortName = stock_json['short_name'];
         let conclusion = stock_json['comment']['conclusion'];
 
-        web_content += `<tr><td>${shortName}</td><td>${conclusion}</td></tr>`;
+        let status_code = conclusion.substring(0, 1);
+        let the_css = '';
+        switch (status_code) {
+            case '1':
+                the_css = 'good';
+                break;
+            case '2':
+                the_css = 'watch';
+                break;
+            case '3':
+                the_css = 'bad';
+                break;
+            default:
+                break;
+        }
+        web_content += `<tr><td class=${the_css}>${shortName}</td><td>${conclusion.substring(4)}</td></tr>`;
     }
-
     web_content += `</table>`;
 
     document.body.innerHTML = web_content;
-
 </script>
 
 </body>
