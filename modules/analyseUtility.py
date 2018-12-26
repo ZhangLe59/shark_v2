@@ -72,10 +72,10 @@ def analyse_trend(shark_db, _dict):
             else:
                 comment['TREND_1'] = 'Upward/Flat Middle Term Trending.'
 
-            if twohundred_day_ma < yest_twohundred_day_ma:
-                comment['TREND_2'] = "Downward Long Term Trending."
+            if twohundred_day_ma <= fifty_day_ma:
+                comment['TREND_2'] = "Upward Long Term Trending."
             else:
-                comment['TREND_2'] = 'Upward/Flat Long Term Trending.'
+                comment['TREND_2'] = 'Downward Long Term Trending.'
 
         comment['vsSP500'] = 'Outperformed S&P 500' if yearly_chg > sp500_yearly_chg else 'Under performed S&P 500'
 
