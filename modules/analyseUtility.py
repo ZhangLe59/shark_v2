@@ -53,12 +53,11 @@ def analyse_trend(shark_db, _dict):
             comment = {}
             if twohundred_day_ma < fifty_day_ma < marketPrice :
                 comment['conclusion'] = '1_1_AWESOME, Hold this stock! '
-            elif fifty_day_ma < marketPrice:
+            elif fifty_day_ma < marketPrice :
                 comment['conclusion'] = '1_2_Seems effective short-term rebounce.'
             elif marketPrice < fifty_day_ma < twohundred_day_ma:
                 comment['conclusion'] = '3_1_This is really bad. '
-            elif marketPrice < fifty_day_ma > twohundred_day_ma \
-                    and fifty_day_ma > yest_fifty_day_ma:
+            elif marketPrice < fifty_day_ma > twohundred_day_ma:
                 comment['conclusion'] = '2_1_Watch out, it will be Awesome if it breakthrough ' + str(fifty_day_ma)
             else:
                 comment['conclusion'] = 'Need further investigation'
