@@ -15,11 +15,12 @@ logger = logging.getLogger(__name__)
 
 @app.route("/")
 def hello():
-    return "Welcome to Shark V2, The Quick Analytics Platform for Global Stocks"
+    # return "Welcome to Shark V2, The Quick Analytics Platform for Global Stocks"
+    return render_template('index.html')
 
 
-@app.route('/showrecent')
-def all_saved_data():
+@app.route('/analysis7')
+def show_analysis():
     shark_db = get_db()
 
     all_data = {}
@@ -30,6 +31,17 @@ def all_saved_data():
 
     return json2table.convert(all_data, "LEFT_TO_RIGHT", {'border': 1})
 
+@app.route('/data7')
+def show_data():
+    shark_db = get_db()
+
+    all_data = {}
+    result_cursor = shark_db.find_all('stocks').sort([('key', pymongo.DESCENDING)]).limit(7)
+    for doc in result_cursor:
+        doc.pop('_id')
+        all_data[doc['key']] = doc
+
+    return json2table.convert(all_data, "LEFT_TO_RIGHT", {'border': 1})
 
 @app.route('/snapshot')
 def show_today_snapshot():
@@ -63,7 +75,6 @@ def crawl_today_raw():
     except Exception as e:
         print(e)
         return e
-        # crawl_today_raw()
 
 
 # @app.route('/news')
