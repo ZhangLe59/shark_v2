@@ -33,14 +33,19 @@ def analyse_trend(shark_db, _dict):
 
         comment = {}
 
-        display_name, fifty_day_ma = analyse_today_data(comment, data, stock)
-        if stock in yesterday_analysis['data'] and stock in yesterday_raw_data['data']:
-            analyse_rolling_2_day(comment, fifty_day_ma, stock, yesterday_analysis, yesterday_raw_data)
+        try:
+            display_name, fifty_day_ma = analyse_today_data(comment, data, stock)
+            if stock in yesterday_analysis['data'] and stock in yesterday_raw_data['data']:
+                analyse_rolling_2_day(comment, fifty_day_ma, stock, yesterday_analysis, yesterday_raw_data)
 
-        individual_result = {}
-        individual_result['short_name'] = display_name
-        individual_result['comment'] = comment
-        full_result[stock] = individual_result
+            individual_result = {}
+            individual_result['short_name'] = display_name
+            individual_result['comment'] = comment
+            full_result[stock] = individual_result
+        except:
+            print('Exception happened during analyzing this stock ' + stock + ' , skip.')
+            continue
+
 
     today__strftime = datetime.now(pytz.timezone('Singapore')).strftime('%Y-%m-%d')
     result['key'] = today__strftime
@@ -73,8 +78,11 @@ def analyse_today_data(comment, data, stock):
 
     display_name = data[stock]['shortName'] + ' (' + str(marketPrice) + ')'
 
+    comment['stock_code'] = stock
+    comment['short_name'] = display_name
+
     if twohundred_day_ma < fifty_day_ma < marketPrice:
-        comment['conclusion'] = '1_1_AWESOME, Hold this stock! '
+        comment['conclusion'] = '0_1_AWESOME, Hold this stock! '
     elif fifty_day_ma < marketPrice:
         comment['conclusion'] = '1_2_Seems effective short-term rebounce.'
     elif marketPrice < fifty_day_ma < twohundred_day_ma:

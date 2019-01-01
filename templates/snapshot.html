@@ -8,8 +8,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
-        .good {
+
+        .verygood {
             background-color: limegreen;
+        }
+
+        .good {
+            background-color: lightgreen;
         }
 
         .watch {
@@ -33,15 +38,20 @@
     let json_string = '{{ content.data|tojson|safe}}';
     let json_obj = JSON.parse(json_string);
 
-    let stocks = Object.keys(json_obj);
+    // let stocks = Object.keys(json_obj);
+
+    let stock_array = Object.values(json_obj);
+    stock_array.sort(function (a, b) {
+        return a.comment.conclusion.localeCompare(b.comment.conclusion);
+    });
 
     let web_content = `<table><tr><th>Stock Now</th><th>Mid-Term</th><th>Health Check</th></tr>`;
 
-    for (let i = 0; i < stocks.length; i++) {
-        let stock_json = json_obj[stocks[i]];
+    for (let i = 0; i < stock_array.length; i++) {
+        let stock_json = stock_array[i].comment;
         let shortName = stock_json['short_name'];
-        let conclusion = stock_json['comment']['conclusion'];
-        let trend_2 = stock_json['comment']['TREND_2'];
+        let conclusion = stock_json['conclusion'];
+        let trend_2 = stock_json['TREND_2'];
 
         let status_code = conclusion.substring(0, 1);
         let the_css = '';
@@ -49,9 +59,13 @@
         let trend_2_icon = (trend_2.startsWith('Downward')) ? 'trending_down' : 'trending_up';
 
         switch (status_code) {
+            case '0':
+                the_css = 'verygood';
+                icon = 'star';
+                break;
             case '1':
                 the_css = 'good';
-                icon = 'sentiment_very_satisfied';
+                icon = 'child_care';
                 break;
             case '2':
                 the_css = 'watch';

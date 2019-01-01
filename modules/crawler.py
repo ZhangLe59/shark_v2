@@ -12,12 +12,14 @@ from modules.analyseUtility import *
 def get_data_yahoo(shark_db):
     logger = logging.getLogger(__name__)
 
-    stock_list = ['AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA',
+    stock_list = [
+                  'AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA',
                   'TSLA', 'PLNT', 'MO',
                   '0700.HK', '2318.HK', '2202.HK', '1211.HK', '6060.HK', '1579.HK', '6862.HK', '1810.HK', '3690.HK',
                   'AU8U.SI', 'D05.SI',
                   'IAG.AX', 'A2M.AX',
-                  '600030.SS']
+                  '600030.SS'
+    ]
 
     result = {}
     data_dict = {}
@@ -44,6 +46,7 @@ def get_data_yahoo(shark_db):
             new_stock = stock.replace('.', '-')
             stock_list[idx] = new_stock
             data_dict[new_stock] = json.loads(dict_string)[stock]
+            data_dict[new_stock]['stock_code'] = new_stock
 
             soup = BeautifulSoup(the_page, features="html.parser")
 

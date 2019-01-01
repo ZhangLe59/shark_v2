@@ -123,6 +123,6 @@ def save_to_mongo_db(shark_db, collection, dict):
             shark_db.update(collection, {'_id': _id}, dict)
 
             new_document = shark_db.find_one(collection, {'_id': _id});
-            print('Existing document has been replaced %s', new_document['_id'])
+            print('Existing document ' + str(new_document['_id']) + ' in dataset ' + collection + ' has been replaced')
     except Exception as db_exception:
         print(str(db_exception))
