@@ -19,19 +19,19 @@ def hello():
     return render_template('index.html')
 
 
-@app.route('/analysis7')
+@app.route('/analysis')
 def show_analysis():
     shark_db = get_db()
 
     all_data = {}
-    result_cursor = shark_db.find_all('analysis').sort([('key', pymongo.DESCENDING)]).limit(7)
+    result_cursor = shark_db.find_all('analysis').sort([('key', pymongo.DESCENDING)]).limit(4)
     for doc in result_cursor:
         doc.pop('_id')
         all_data[doc['key']] = doc
 
     return json2table.convert(all_data, "LEFT_TO_RIGHT", {'border': 1})
 
-@app.route('/data7')
+@app.route('/data')
 def show_data():
     shark_db = get_db()
 
