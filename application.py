@@ -1,12 +1,16 @@
 import pymongo
 from flask import Flask, g, render_template, jsonify
 from json2table import json2table
+import schedule
+import time
+import threading
 
 from modules.crawler import *
 
 # https://codehandbook.org/creating-rest-api-using-python-mongodb/
 # https://cloud.mongodb.com/v2/5be630d0cf09a2a588b0055e#clusters
 # from modules.news import get_news_from_API
+
 
 app = Flask(__name__)
 
@@ -31,6 +35,7 @@ def show_analysis():
 
     return json2table.convert(all_data, "LEFT_TO_RIGHT", {'border': 1})
 
+
 @app.route('/data')
 def show_data():
     shark_db = get_db()
@@ -43,6 +48,7 @@ def show_data():
 
     return json2table.convert(all_data, "LEFT_TO_RIGHT", {'border': 1})
 
+
 @app.route('/snapshot')
 def show_today_snapshot():
     today = datetime.now(pytz.timezone('Singapore')).strftime('%Y-%m-%d')
@@ -50,7 +56,9 @@ def show_today_snapshot():
     analyse_result = get_db().find_one('analysis', {'key': today})
 
     if analyse_result is None:
-        return 'Analysis result is not ready yet.'
+        crawl_today_raw()
+        show_today_snapshot()
+        # return 'Analysis result is not ready yet.'
 
     analyse_result.pop('_id')
     print(type(analyse_result))
@@ -106,5 +114,14 @@ def teardown_db(error):
         db.close_conn()
 
 
+def start_scheduler():
+    # schedule.every().day.at("10:30").do(crawl_today_raw)
+    schedule.every(1).minutes.do(crawl_today_raw)
+    schedule.run_pending()
+
+    print('Started scheduler')
+
+
 if __name__ == '__main__':
+    start_scheduler()
     app.run()
