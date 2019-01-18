@@ -1,27 +1,27 @@
 from datetime import timedelta
 
-import pytz
-
 from modules.DBUtility import *
 
 
 def analyse_trend(shark_db, _dict):
     logger = logging.getLogger(__name__)
 
-    # Get previous analysis data for status change which will trigger buy/sell action
-    yesterday = datetime.now(pytz.timezone('Singapore')) - timedelta(1)
-    logger.info('The date used for previous day is ' + str(yesterday))
-    yesterday__strftime = yesterday.strftime('%Y-%m-%d')
+    _dict_date = datetime.strptime(_dict['key'], '%Y-%m-%d')
+    yesterday = _dict_date - timedelta(1)
 
-    yesterday_analysis = shark_db.find_one('analysis', {'key': yesterday__strftime})
-    yesterday_raw_data = shark_db.find_one('stocks', {'key': yesterday__strftime})
+    # Get previous analysis data for status change which will trigger buy/sell action
+    logger.info('The date used for previous day is ' + str(yesterday))
+    yesterday_strftime = yesterday.strftime('%Y-%m-%d')
+
+    yesterday_analysis = shark_db.find_one('analysis', {'key': yesterday_strftime})
+    yesterday_raw_data = shark_db.find_one('stocks', {'key': yesterday_strftime})
 
     while (yesterday_analysis is None or yesterday_raw_data is None):
         print('There is gap in data, pushing 1 more day back')
         yesterday = yesterday - timedelta(1)
-        yesterday__strftime = yesterday.strftime('%Y-%m-%d')
-        yesterday_analysis = shark_db.find_one('analysis', {'key': yesterday__strftime})
-        yesterday_raw_data = shark_db.find_one('stocks', {'key': yesterday__strftime})
+        yesterday_strftime = yesterday.strftime('%Y-%m-%d')
+        yesterday_analysis = shark_db.find_one('analysis', {'key': yesterday_strftime})
+        yesterday_raw_data = shark_db.find_one('stocks', {'key': yesterday_strftime})
 
     print('Found previous data for analysing!')
 
@@ -46,9 +46,7 @@ def analyse_trend(shark_db, _dict):
             print('Exception happened during analyzing this stock ' + stock + ' , skip.')
             continue
 
-
-    today__strftime = datetime.now(pytz.timezone('Singapore')).strftime('%Y-%m-%d')
-    result['key'] = today__strftime
+    result['key'] = _dict['key']
     result['data'] = full_result
     save_to_mongo_db(shark_db, 'analysis', result)
 

@@ -1,4 +1,5 @@
 import pymongo
+import pytz
 from flask import Flask, g, render_template, jsonify
 from json2table import json2table
 import schedule
@@ -56,9 +57,7 @@ def show_today_snapshot():
     analyse_result = get_db().find_one('analysis', {'key': today})
 
     if analyse_result is None:
-        crawl_today_raw()
-        show_today_snapshot()
-        # return 'Analysis result is not ready yet.'
+        return 'Analysis result is not ready yet.'
 
     analyse_result.pop('_id')
     print(type(analyse_result))
@@ -85,6 +84,26 @@ def crawl_today_raw():
         return e
 
 
+@app.route('/rerun')
+def analyse_all():
+    logger.info('Re-run all analysis from today')
+    shark_db = get_db()
+
+    count = 0
+    current_day = datetime.now(pytz.timezone('Singapore'))
+    current_day_key = current_day.strftime('%Y-%m-%d')
+
+    while ('2018-12-01' < current_day_key):
+        stock_data = get_db().find_one('stocks', {'key': current_day_key})
+        if stock_data is not None:
+            print('Stock data found on ', current_day_key)
+            analyse_trend(shark_db, stock_data)
+            count = count + 1
+
+        current_day = current_day - timedelta(1)
+        current_day_key = current_day.strftime('%Y-%m-%d')
+
+    return 'Re-run completed for ' + str(count) + ' days data since 1st Dec 2018'
 # @app.route('/news')
 # def get_news():
 #     try:
