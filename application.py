@@ -70,6 +70,23 @@ def show_today_snapshot():
 
     return render_template('snapshot.html', content=analyse_result)
 
+@app.route('/backtest')
+def backtest():
+    all_analyse_result = []
+    for x in get_db().find_all('analysis'):
+        x.pop('_id')
+        logger.info(x)
+        all_analyse_result.append(x)
+
+    all_analyse_result.pop(0)
+    # html_string = json2table.convert(all_analyse_result, "LEFT_TO_RIGHT", {'border': 1})
+    return 'ok'
+
+    # json_data = jsonify(json.dumps(analyse_result))
+
+    # json_data = jsonify(analyse_result) #Returns full response with status
+
+    # return render_template('snapshot.html', content=analyse_result)
 
 @app.route('/crawl')
 def crawl_today_raw():
@@ -93,7 +110,9 @@ def analyse_all():
     current_day = datetime.now(pytz.timezone('Singapore'))
     current_day_key = current_day.strftime('%Y-%m-%d')
 
-    while ('2018-12-01' < current_day_key):
+    start_date = '2018-11-27'
+
+    while (start_date < current_day_key):
         stock_data = get_db().find_one('stocks', {'key': current_day_key})
         if stock_data is not None:
             print('Stock data found on ', current_day_key)
@@ -103,7 +122,7 @@ def analyse_all():
         current_day = current_day - timedelta(1)
         current_day_key = current_day.strftime('%Y-%m-%d')
 
-    return 'Re-run completed for ' + str(count) + ' days data since 1st Dec 2018'
+    return 'Re-run completed for ' + str(count) + ' days data since ' + start_date
 # @app.route('/news')
 # def get_news():
 #     try:
@@ -135,10 +154,10 @@ def teardown_db(error):
 
 def start_scheduler():
     # schedule.every().day.at("10:30").do(crawl_today_raw)
-    schedule.every(1).minutes.do(crawl_today_raw)
-    schedule.run_pending()
+    # schedule.every(1).minutes.do(crawl_today_raw)
+    # schedule.run_pending()
 
-    print('Started scheduler')
+    logger.info('Started scheduler')
 
 
 if __name__ == '__main__':
