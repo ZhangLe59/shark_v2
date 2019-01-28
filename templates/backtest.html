@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Back Test</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+
+        .verygood {
+            background-color: limegreen;
+        }
+
+        .good {
+            background-color: lightgreen;
+        }
+
+        .watch {
+            background-color: orange;
+        }
+
+        .bad {
+            background-color: red;
+        }
+
+        table, td, th {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+<body>
+
+<script type='module'>
+
+    import {generateHtml} from '/static/renderSingleDaydata.js';
+
+    let json_string = '{{ content|tojson|safe}}';
+    let list_result = JSON.parse(json_string);
+
+    let index = list_result.length - 1;
+
+    showHtmlOutput(index);
+
+    window.addEventListener("keydown", function (e) {
+        if (e.key === 'ArrowRight') {
+            if (index < list_result.length - 1) {
+                index++;
+            }
+        } else if (e.key === 'ArrowLeft') {
+            if (index > 0) {
+                index--;
+            }
+        }
+        showHtmlOutput(index);
+    });
+
+    function showHtmlOutput(index) {
+        let html = generateHtml(list_result[index].data);
+        document.body.innerHTML = html;
+    }
+
+</script>
+</body>
+</html>

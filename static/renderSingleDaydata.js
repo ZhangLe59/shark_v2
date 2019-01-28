@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Result</title>
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <style>
-
-        .verygood {
-            background-color: limegreen;
-        }
-
-        .good {
-            background-color: lightgreen;
-        }
-
-        .watch {
-            background-color: orange;
-        }
-
-        .bad {
-            background-color: red;
-        }
-
-        table, td, th {
-            border-collapse: collapse;
-            border: 1px solid black;
-        }
-    </style>
-</head>
-
-<body>
-
-<script>
-    let json_string = '{{ content.data|tojson|safe}}';
-    let json_obj = JSON.parse(json_string);
-
-    // let stocks = Object.keys(json_obj);
+export function generateHtml(json_obj) {
 
     let stock_array = Object.values(json_obj);
     stock_array.sort(function (a, b) {
@@ -86,10 +46,5 @@
     }
     web_content += `</table>`;
 
-    document.body.innerHTML = web_content;
-</script>
-
-</body>
-
-</html>
-
+    return web_content;
+}
