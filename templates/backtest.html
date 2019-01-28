@@ -58,7 +58,8 @@
     });
 
     function showHtmlOutput(index) {
-        let html = generateHtml(list_result[index].data);
+        let html = `<div>` + list_result[index].key + `</div>`;
+        html = html + generateHtml(list_result[index].data);
         document.body.innerHTML = html;
     }
 
