@@ -14,12 +14,10 @@ def get_data_yahoo(shark_db):
     logger = logging.getLogger(__name__)
 
     CONSTANT_STOCK_POOL = [
-        'AMZN', 'LMT', 'BA', 'PDD', 'NFLX', 'FB', 'USNA', 'MDB', 'NIO', 'SQ', 'GDS', 'YRD', 'AMD', 'BABA',
-        'TSLA', 'PLNT', 'MO', 'VIPS', 'TCEHY',
-        '0700.HK', '2318.HK', '2202.HK', '1211.HK', '6060.HK', '1579.HK', '6862.HK', '1810.HK', '3690.HK',
-        'AU8U.SI', 'D05.SI',
-        'IAG.AX', 'A2M.AX',
-        '600030.SS', '002415.SZ'
+        'AMZN', 'LMT', 'BA', 'PDD', 'FB', 'MDB', 'GDS', 'YRD', 'AMD', 'BABA', 'TSLA', 'MO', 'VIPS', 'TCEHY',
+        '0700.HK', '2318.HK', '2202.HK', '1211.HK', '6060.HK', '1579.HK', '6862.HK', '1810.HK', '3690.HK', '1093.HK', '2382.HK', '1833.HK', '0981.HK', '3087.HK', '2827.HK',
+        'AU8U.SI', 'D05.SI', 'A2M.AX',
+        '600030.SS', '002415.SZ', '000725.SZ', '601138.SS'
     ]
 
     stock_list = CONSTANT_STOCK_POOL[:]

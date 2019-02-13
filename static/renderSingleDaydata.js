@@ -5,13 +5,15 @@ export function generateHtml(json_obj) {
         return a.comment.conclusion.localeCompare(b.comment.conclusion);
     });
 
-    let web_content = `<table><tr><th>Stock Now</th><th>Mid-Term</th><th>Health Check</th></tr>`;
+    let web_content = `<table><tr><th>Stock Now</th><th>Mid-Term</th><th>Health Check</th><th>Action</th></tr>`;
 
     for (let i = 0; i < stock_array.length; i++) {
         let stock_json = stock_array[i].comment;
         let shortName = stock_json['short_name'];
         let conclusion = stock_json['conclusion'];
         let trend_2 = stock_json['TREND_2'];
+
+        let action_icon = (stock_json['HIGH_ALERT'] === undefined) ? '' : 'flash_auto';
 
         let status_code = conclusion.substring(0, 1);
         let the_css = '';
@@ -42,7 +44,9 @@ export function generateHtml(json_obj) {
         web_content += `<tr>
                 <td class=${the_css}><i class="material-icons md-18" >${icon}</i>${shortName}</td>
                 <td><i class="material-icons md-18" >${trend_2_icon}</i></td>
-                <td>${conclusion.substring(4)}</td></tr>`;
+                <td>${conclusion.substring(4)}</td>
+                <td><i class="material-icons md-18" >${action_icon}</i></td>
+                </tr>`;
     }
     web_content += `</table>`;
 
