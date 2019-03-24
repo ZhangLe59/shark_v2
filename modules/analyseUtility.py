@@ -78,6 +78,7 @@ def analyse_today_data(comment, data, stock):
 
     comment['stock_code'] = stock
     comment['short_name'] = display_name
+    comment['fifty_day_ma'] = str(fifty_day_ma)
 
     if twohundred_day_ma < fifty_day_ma < marketPrice:
         comment['conclusion'] = '0_1_AWESOME, Hold this stock! '
